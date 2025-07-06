@@ -37,6 +37,17 @@ pipeline {
             }
         }
 
+        stage('Sonar') {
+            steps {
+                dir('expense-tracker-service') {
+                    withSonarQubeEnv('sonarqube-24.12.0.100206') {
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+        }
+
+
         stage('Test') {
             steps {
                 script {
